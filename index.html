@@ -4,6 +4,261 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expense tracker</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body></body>
+  <body>
+    <nav class="nav">
+      <p class="nav__logo">Expens<span>ly</span></p>
+      <div class="nav__icons">
+        <img
+          src="/assets/bars_icon.svg"
+          alt="bars icon"
+          class="open__nav__icon"
+        />
+        <img
+          src="/assets/close_icon.svg"
+          alt="close icon"
+          class="close__nav__icon hidden"
+        />
+      </div>
+      <ul class="nav__items">
+        <li class="nav__item">Dashboard</li>
+        <li class="nav__item">Reports</li>
+        <li class="nav__item">Expenses</li>
+        <li class="nav__item">Settings</li>
+        <li class="nav__item">Profile</li>
+        <li class="nav__item">Log out</li>
+      </ul>
+    </nav>
+
+    <div class="app">
+      <div class="app__main">
+        <div class="card card__fit">
+          <div class="card__header">
+            <div class="card__header__greenbox"></div>
+            <div class="card__header__textbox">
+              <p class="card__header__textbox__title">Add products</p>
+              <p class="card__header__textbox__subtitle">
+                Add products that you have spent money on
+              </p>
+              <button class="main__button open__modal">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card__without_padding card__expenses">
+          <div class="card__header">
+            <div class="card__header__greenbox"></div>
+            <div class="card__header__textbox">
+              <p class="card__header__textbox__title">Expenses</p>
+              <p class="card__header__textbox__subtitle">Your all products</p>
+            </div>
+          </div>
+          <div class="expenses__reset">
+            <img src="/assets/reset.svg" alt="reset icon" />
+          </div>
+
+          <form>
+            <input
+              type="text"
+              placeholder="ex. coffe"
+              class="expenses__container__input"
+            />
+
+            <div class="expenses__filter">
+              <div class="expenses__container__select">
+                <p>Category: <span class="current__category">all</span></p>
+                <div class="select__icon">
+                  <img src="/assets/arrow_down.svg" alt="arrow down icon" />
+                </div>
+              </div>
+              <div class="select__options hidden">
+                <p class="select__options__option">all</p>
+                <p class="select__options__option">food</p>
+                <p class="select__options__option">car</p>
+              </div>
+              <div class="expenses__date__filter">
+                <div class="expenses__container__select" id="from_date_open">
+                  <div class="expenses__container__select__date">
+                    <p>
+                      From: <span class="current__from__date">dd/mm/yyyy</span>
+                    </p>
+                    <img
+                      src="./assets/calendar.svg"
+                      alt="calendar icon"
+                      class="expenses__container__select__date__icon"
+                    />
+                  </div>
+                  <input type="date" class="from__date invisible" />
+                </div>
+
+                <div class="expenses__container__select" id="to_date_open">
+                  <div class="expenses__container__select__date">
+                    <p>To: <span class="current__to__date">dd/mm/yyyy</span></p>
+                    <img
+                      src="./assets/calendar.svg"
+                      alt="calendar icon"
+                      class="expenses__container__select__date__icon"
+                    />
+                  </div>
+                  <input type="date" class="to__date invisible" />
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div class="sort__parent">
+            <div class="expenses__container__select sort">
+              <p>
+                Sort by: <span class="current__select">Date: descending</span>
+              </p>
+              <div class="select__icon select__sort__icon">
+                <img src="/assets/arrow_down.svg" alt="arrow down icon" />
+              </div>
+            </div>
+            <div class="select__options select_sort hidden">
+              <p class="select__options__option">Price: ascending</p>
+              <p class="select__options__option">Price: descending</p>
+              <p class="select__options__option">Date: ascending</p>
+              <p class="select__options__option">Date: descending</p>
+            </div>
+          </div>
+          <div class="expenses__container__list expenses__card"></div>
+          <p class="no__items__found hidden">No items found.</p>
+        </div>
+
+        <div class="pagination">
+          <div class="pagination_icons">
+            <img
+              src="/assets/arrow_end_left.svg"
+              alt="end left arrow icon"
+              class="arrow_end_left"
+            />
+            <img
+              src="/assets/arrow_left.svg"
+              alt="left arrow icon"
+              class="arrow_left"
+            />
+            <div class="pagination_page">
+              <p class="pagination__page__count">1</p>
+            </div>
+            <img
+              src="/assets/arrow_right.svg"
+              alt="right arrow icon"
+              class="arrow_right"
+            />
+            <img
+              src="/assets/arrow_end_right.svg"
+              alt="end right icon"
+              class="arrow_end_right"
+            />
+          </div>
+          <p>
+            <span class="product__count">0</span> of
+            <span class="all_product__count">0</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="app__side card__aside">
+        <div class="card">
+          <div class="card__header">
+            <div class="card__header__greenbox"></div>
+            <div class="card__header__textbox">
+              <p class="card__header__textbox__title">Summary</p>
+              <p class="card__header__textbox__subtitle">In total</p>
+            </div>
+          </div>
+          <p class="total"></p>
+        </div>
+
+        <div class="card card__without_padding">
+          <div class="card__header">
+            <div class="card__header__greenbox"></div>
+            <div class="card__header__textbox">
+              <p class="card__header__textbox__title">Summary</p>
+              <p class="card__header__textbox__subtitle">Per period</p>
+            </div>
+          </div>
+          <canvas id="chartPeriod" width="360"></canvas>
+        </div>
+
+        <div class="card card__without_padding">
+          <div class="card__header">
+            <div class="card__header__greenbox"></div>
+            <div class="card__header__textbox">
+              <p class="card__header__textbox__title">Summary</p>
+              <p class="card__header__textbox__subtitle">Per category</p>
+            </div>
+          </div>
+          <canvas id="chartCategory" width="360"></canvas>
+        </div>
+      </div>
+      <div class="modal__backdrop hidden">
+        <div class="modal">
+          <div class="modal__close">
+            <img src="./assets/close_icon.svg" alt="close icon" />
+          </div>
+          <form class="modal__form">
+            <input
+              type="text"
+              placeholder="Product: ex. coffe"
+              class="expenses__container__input modal__product__input"
+            />
+            <p class="error hidden">This field is required</p>
+            <input
+              type="number"
+              placeholder="Price: ex. 20,99"
+              class="expenses__container__input modal__product__input__number"
+            />
+            <p class="error hidden">
+              This field is required and it cannot be negative
+            </p>
+            <div class="expenses__container__select">
+              <p>
+                Select category:
+                <span class="current__category selected__category">food</span>
+              </p>
+              <div class="select__icon select__icon__category">
+                <img src="/assets/arrow_down.svg" alt="arrow down icon" />
+              </div>
+            </div>
+            <div class="select__options hidden select__category__options">
+              <p class="select__options__option">food</p>
+              <p class="select__options__option">car</p>
+            </div>
+            <div>
+              <div class="expenses__container__select" id="bought-date">
+                <div class="expenses__container__select__date">
+                  <p>
+                    Date:
+                    <span class="current__to__date current__bought__date"
+                      >dd/mm/yyyy</span
+                    >
+                  </p>
+                  <img
+                    src="./assets/calendar.svg"
+                    alt="calendar icon"
+                    class="expenses__container__select__date__icon"
+                  />
+                </div>
+                <input type="date" class="to__date invisible product__date" />
+              </div>
+            </div>
+            <p class="error hidden">This field is required</p>
+
+            <button class="main__button add__product">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
